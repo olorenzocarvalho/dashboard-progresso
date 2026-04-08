@@ -306,20 +306,49 @@ export default function App() {
         </div>
 
         <div className="mt-6 md:mt-0 flex items-center gap-3 z-10">
+          {/* Elemento de teste - impossível de não ver */}
+          <div style={{
+            backgroundColor: 'red',
+            color: 'white',
+            padding: '20px',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            border: '3px solid yellow',
+            borderRadius: '10px'
+          }}>
+            TESTE VISUAL - BOTÃO ABAIXO
+          </div>
+          
           {/* Botão Atualizar - versão ultra simplificada */}
           <button
             onClick={() => {
               console.log('Botão clicado!');
               window.location.reload();
             }}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors"
-            style={{fontSize: '14px', minWidth: '150px'}}
+            style={{
+              backgroundColor: 'lime',
+              color: 'black',
+              padding: '15px 30px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              border: '2px solid black',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              minWidth: '200px'
+            }}
           >
             ATUALIZAR DADOS
           </button>
           
           {/* Status simples */}
-          <div className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold">
+          <div style={{
+            backgroundColor: 'orange',
+            color: 'white',
+            padding: '15px',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            borderRadius: '5px'
+          }}>
             SISTEMA ATIVO
           </div>
         </div>
