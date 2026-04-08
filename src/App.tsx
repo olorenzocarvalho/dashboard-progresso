@@ -265,6 +265,7 @@ export default function App() {
 
   // Função para refresh manual
   const handleRefresh = () => {
+    console.log('Botão Atualizar clicado!');
     setLoading(true);
     fetchDashboardData();
   };
