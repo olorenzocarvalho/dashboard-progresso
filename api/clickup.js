@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 // Token da API do ClickUp
 const apiKey = process.env.CLICKUP_API_KEY;
