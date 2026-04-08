@@ -306,28 +306,34 @@ export default function App() {
         </div>
 
         <div className="mt-6 md:mt-0 flex flex-col sm:flex-row items-start sm:items-center gap-3 z-10">
-          {error && (
-            <div className="px-3 py-2 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-2">
-              <AlertCircle size={16} className="text-red-400" />
-              <span className="text-xs font-semibold text-red-400">{error}</span>
-            </div>
-          )}
-          <div className="px-4 py-2 bg-[#0f141e] border border-[#2a3142] rounded-lg flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-emerald-500'} ${!error && 'animate-pulse'} shadow-[0_0_8px_rgba(16,185,129,0.8)]`}></div>
-            <span className={`text-xs font-semibold ${error ? 'text-red-400' : 'text-emerald-400'} uppercase tracking-wider`}>
-              {error ? 'Erro' : 'Sistema Ativo'}
-            </span>
-          </div>
+          {/* Botão Atualizar - sempre visível */}
           <button
             onClick={handleRefresh}
-            className="px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg flex items-center gap-2 hover:bg-cyan-500/20 transition-colors"
+            className="px-4 py-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg flex items-center gap-2 hover:bg-cyan-500/30 transition-all"
             disabled={loading}
+            style={{minWidth: '120px'}}
           >
             <RefreshCw size={16} className={`text-cyan-400 ${loading && 'animate-spin'}`} />
             <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
               {loading ? 'Atualizando...' : 'Atualizar'}
             </span>
           </button>
+          
+          {/* Status do Sistema */}
+          <div className="px-4 py-2 bg-[#0f141e] border border-[#2a3142] rounded-lg flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-emerald-500'} ${!error && 'animate-pulse'} shadow-[0_0_8px_rgba(16,185,129,0.8)]`}></div>
+            <span className={`text-xs font-semibold ${error ? 'text-red-400' : 'text-emerald-400'} uppercase tracking-wider`}>
+              {error ? 'Erro' : 'Sistema Ativo'}
+            </span>
+          </div>
+          
+          {/* Mensagem de Erro (se houver) */}
+          {error && (
+            <div className="px-3 py-2 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-2">
+              <AlertCircle size={16} className="text-red-400" />
+              <span className="text-xs font-semibold text-red-400">{error}</span>
+            </div>
+          )}
         </div>
       </header>
 
