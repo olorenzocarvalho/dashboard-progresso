@@ -166,20 +166,84 @@ export default function App() {
   const fetchDashboardData = async () => {
     try {
       setError(null);
-      const response = await fetch('/api/clickup');
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      // Tentar buscar da API primeiro
+      try {
+        const response = await fetch('/api/clickup');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const apiData = await response.json();
+        setData(apiData);
+        setLastRefresh(new Date());
+        console.log('Dados atualizados do ClickUp:', apiData);
+        setError(null); // Limpa qualquer erro anterior
+      } catch (apiError) {
+        console.log('API não disponível, usando dados estáticos');
+        throw apiError; // Propaga para usar fallback
       }
-      
-      const apiData = await response.json();
-      setData(apiData);
-      setLastRefresh(new Date());
-      console.log('Dados atualizados do ClickUp:', apiData);
     } catch (err) {
-      console.error('Erro ao buscar dados da API:', err);
-      setError('Não foi possível carregar dados do ClickUp. Usando dados estáticos.');
-      // Mantém os dados de fallback em caso de erro
+      console.error('Usando modo fallback com dados estáticos:', err.message);
+      
+      // Usar dados estáticos do Gemini Canvas
+      const staticData = {
+        overallStatus: [
+          { label: 'Ok', percent: 12.5, color: '#10b981' },
+          { label: 'Em andamento', percent: 75, color: '#3b82f6' },
+          { label: 'Restante', percent: 12.5, color: '#64748b' },
+        ],
+        itemDistribution: [
+          { label: 'Cloud', percent: 4.545454545454545, color: '#f59e0b', count: 4 },
+          { label: 'Download Screen', percent: 9.090909090909091, color: '#06b6d4', count: 8 },
+          { label: 'Back-End', percent: 57.95454545454545, color: '#a855f7', count: 51 },
+          { label: 'Screen', percent: 28.40909090909091, color: '#ec4899', count: 25 },
+        ],
+        mainProgress: [
+          { label: 'Cloud', percent: 100, colorClass: 'bg-amber-500', textClass: 'text-amber-400', shadowClass: 'shadow-amber-500/50' },
+          { label: 'Download Screen', percent: 81.25, colorClass: 'bg-cyan-500', textClass: 'text-cyan-400', shadowClass: 'shadow-cyan-500/50' },
+          { label: 'Screen', percent: 50, colorClass: 'bg-pink-500', textClass: 'text-pink-400', shadowClass: 'shadow-pink-500/50' },
+          { label: 'Back-End', percent: 41.1764705882398, colorClass: 'bg-purple-500', textClass: 'text-purple-400', shadowClass: 'shadow-purple-500/50' },
+        ],
+        backendTopics: [
+          { label: 'Pulso CSA', percent: 52.94117647058824 },
+          { label: 'Cloud IAC', percent: 31.25 },
+          { label: 'FinOps', percent: 25 },
+          { label: 'Inteligência de Dados', percent: 30 },
+          { label: 'Insights', percent: 50 },
+          { label: 'Stripe', percent: 50 },
+          { label: 'Relatórios', percent: 0 },
+        ],
+        screenTopics: [
+          { label: 'Login', percent: 16.66666666666667 },
+          { label: 'Serviços', percent: 10 },
+          { label: 'Minha Conta', percent: 10 },
+          { label: 'Tema Branco', percent: 50 },
+          { label: 'Atualizações', percent: 50 },
+          { label: 'Convite do Usuário', percent: 50 },
+          { label: 'Stripe', percent: 50 },
+          { label: 'Documentos', percent: 25 },
+        ],
+        downloadScreenTopics: [
+          { label: 'Início', percent: 100 },
+          { label: 'Sobre', percent: 100 },
+          { label: 'Plataforma', percent: 100 },
+          { label: 'Planos', percent: 100 },
+          { label: 'Contato', percent: 100 },
+          { label: 'Download', percent: 100 },
+          { label: 'ChatBot - Dúvidas', percent: 0 },
+          { label: 'Login - Entrar', percent: 50 },
+        ],
+        cloudTopics: [
+          { label: 'Railway', percent: 100 },
+        ],
+        lastUpdated: new Date().toISOString()
+      };
+      
+      setData(staticData);
+      setLastRefresh(new Date());
+      setError('Modo offline: usando dados estáticos. API não disponível.');
     } finally {
       setLoading(false);
     }
