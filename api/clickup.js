@@ -16,7 +16,17 @@ async function getTasks() {
       },
     });
 
-    return response.data.tasks;
+    // Log para depurar estrutura das tarefas
+    const tasks = response.data.tasks;
+    console.log('Total de tarefas:', tasks.length);
+    
+    // Procurar pela tarefa ChatBot para ver sua estrutura completa
+    const chatbotTask = tasks.find(task => task.name.toLowerCase().includes('chatbot'));
+    if (chatbotTask) {
+      console.log('Estrutura completa da tarefa ChatBot:', JSON.stringify(chatbotTask, null, 2));
+    }
+
+    return tasks;
   } catch (error) {
     console.error('Erro ao obter tarefas:', error);
     return [];
