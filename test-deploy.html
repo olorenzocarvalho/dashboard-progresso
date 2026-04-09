@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TESTE DEPLOY</title>
+    <style>
+        body {
+            background: red;
+            color: white;
+            font-size: 24px;
+            padding: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>SE VOCÊ VÊ ISTO - DEPLOY FUNCIONOU!</h1>
+    <p>Data: <span id="data"></span></p>
+    <script>
+        document.getElementById('data').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>
